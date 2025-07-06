@@ -1216,3 +1216,191 @@ caption.tableCaption {
   padding-left: 8px;
 }
 
+/* Snipe-IT Modern Theme - v2 */
+
+// 1. FONT IMPORT
+// =============================================================================
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+// 2. DESIGN TOKENS (VARIABLES)
+// =============================================================================
+@sidebar-bg: #1a1d21;
+@content-bg: #ffffff;
+@primary-color: #3b82f6;
+@primary-color-hover: #2563eb;
+@text-color-dark-bg: #e5e7eb;
+@text-color-light-bg: #1f2937;
+@border-color-dark: #374151;
+@border-color-light: #e5e7eb;
+@card-bg-light: #ffffff;
+@border-radius: 0.5rem;
+@box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+@box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+@transition-base: all 0.2s ease-in-out;
+@font-family-sans-serif: 'Outfit', 'Noto Sans SC', 'Noto Sans JP', sans-serif;
+
+// 3. GLOBAL & FONT OVERRIDES
+// =============================================================================
+
+// Apply font to all major elements to ensure consistency
+body, .content-wrapper, .main-sidebar, .main-header, .box, .form-control, .btn,
+h1, h2, h3, h4, h5, h6, p, li, td, th, span, a, .select2-selection__rendered {
+    font-family: @font-family-sans-serif !important;
+}
+
+body {
+    background-color: @content-bg !important;
+    color: @text-color-light-bg !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700 !important;
+    color: @text-color-light-bg !important;
+}
+
+a {
+    color: @primary-color;
+    transition: @transition-base;
+    &:hover {
+        color: @primary-color-hover;
+        text-decoration: none;
+    }
+}
+
+// 4. COMPONENT REDESIGN
+// =============================================================================
+
+// Layout: Left Dark, Right Light
+.main-sidebar, .sidebar-toggle {
+    background-color: @sidebar-bg !important;
+}
+
+.sidebar-menu > li > a, .sidebar-menu .treeview-menu > li > a {
+    color: @text-color-dark-bg !important;
+    font-weight: 500;
+}
+
+.sidebar-menu > li.active > a {
+    background: @primary-color !important;
+    color: white !important;
+}
+
+.sidebar-menu > li > a:hover {
+    background: #24282e !important;
+}
+
+.main-header .navbar {
+    background-color: @content-bg !important;
+    border-bottom: 1px solid @border-color-light;
+}
+
+.main-header .logo {
+    background-color: @sidebar-bg !important;
+    font-weight: 700;
+}
+
+.content-wrapper {
+    background-color: @content-bg !important;
+}
+
+
+// Cards on light background
+.box {
+    background-color: @card-bg-light !important;
+    border: 1px solid @border-color-light !important;
+    border-radius: @border-radius !important;
+    box-shadow: @box-shadow !important;
+    transition: @transition-base;
+
+    &:hover {
+        box-shadow: @box-shadow-lg !important;
+        transform: translateY(-2px);
+    }
+}
+
+.box-header {
+    color: @text-color-light-bg;
+    border-bottom: 1px solid @border-color-light;
+}
+
+// Buttons
+.btn {
+    border-radius: @border-radius !important;
+    font-weight: 500 !important;
+    transition: @transition-base !important;
+    box-shadow: @box-shadow !important;
+}
+
+.btn-primary {
+    background-color: @primary-color !important;
+    border-color: @primary-color !important;
+    color: white !important;
+
+    &:hover {
+        background-color: @primary-color-hover !important;
+        border-color: @primary-color-hover !important;
+        transform: translateY(-1px);
+    }
+}
+
+.btn-default {
+    background-color: #f9fafb !important;
+    border-color: @border-color-light !important;
+    color: @text-color-light-bg !important;
+
+    &:hover {
+        background-color: #f3f4f6 !important;
+        border-color: #d1d5db !important;
+    }
+}
+
+// Forms
+.form-control, .select2-container--default .select2-selection--single {
+    background-color: #f9fafb !important;
+    color: @text-color-light-bg !important;
+    border: 1px solid @border-color-light !important;
+    border-radius: @border-radius !important;
+
+    &:focus {
+        background-color: @content-bg !important;
+        color: @text-color-light-bg !important;
+        border-color: @primary-color !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4) !important;
+    }
+}
+
+// Tables
+.table {
+    color: @text-color-light-bg !important;
+    th {
+        color: @text-color-light-bg !important;
+        font-weight: 700 !important;
+    }
+    td, th {
+        border-color: @border-color-light !important;
+    }
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f9fafb;
+}
+
+// Modals
+.modal-content {
+    background-color: @content-bg !important;
+    border: 1px solid @border-color-light !important;
+    border-radius: @border-radius !important;
+}
+.modal-header, .modal-footer {
+    border-bottom-color: @border-color-light !important;
+    border-top-color: @border-color-light !important;
+}
+
+// Gaussian Blur for modal backdrop
+.modal-backdrop.in {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    background-color: rgba(10, 10, 10, 0.5) !important;
+}
+
+
+
