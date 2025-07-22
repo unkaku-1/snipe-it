@@ -1,0 +1,55 @@
+# Use an official PHP image with Alpine Linux as a base
+# Using Alibaba Cloud mirror for better connectivity in China
+FROM registry.cn-hangzhou.aliyuncs.com/library/php:8.2-fpm-alpine
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Use Alibaba Cloud mirror for Alpine packages
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
+# Install system dependencies for PHP extensions and git, nodejs
+RUN apk add --no-cache \
+    git \
+    curl \
+    libzip-dev \
+    zip \
+    unzip \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    openldap-dev \
+    nodejs \
+    npm
+
+# Install PHP extensions required by Snipe-IT
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-install ldap \
+    && docker-php-ext-install bcmath
+
+# Install Composer with Chinese mirror
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+
+# Copy application source code
+COPY . .
+
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Use Taobao npm registry for faster downloads
+RUN npm config set registry https://registry.npmmirror.com
+
+# Install npm dependencies and build assets
+RUN npm install && npm run production
+
+# Fix permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
+
